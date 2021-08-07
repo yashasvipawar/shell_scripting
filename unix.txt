@@ -1331,6 +1331,33 @@ assignment14.sh  assignment21.sh  assignment5.sh
 assignment15.sh  assignment22.sh  assignment6.sh
 
 
+64)Archiving files using linux command, write a command to archive set of files from linux commands.
+An Archive file is a file that is composed of one or more files along with metadata. Archive files are used to collect multiple data files together into a single file for easier portability and storage, or simply to compress files to use less storage space. 
+‘tar’ stands for tape archive, is used to create Archive and extract the Archive files
+Syntax: 
+tar [options] [archive-file] [file or directory to be archived]
+Options: 
+-c : Creates Archive 
+-x : Extract the archive 
+-f : creates archive with given filename 
+-t : displays or lists files in archived file 
+-u : archives and adds to an existing archive file 
+-v : Displays Verbose Information 
+-A : Concatenates the archive files 
+-z : zip, tells tar command that creates tar file using gzip 
+-j : filter archive tar file using tbzip 
+-W : Verify a archive file 
+-r : update or add file or directory in already existed .tar file 
+
+$ tar cvf file.tar *.c
+
+
+65)Extract the archived files from the above step.
+$ tar xvf file.tar
+
+
+
+
 
 
 
