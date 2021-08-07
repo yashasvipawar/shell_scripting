@@ -1,0 +1,1361 @@
+1)List the contents of a directory and their attributes:
+ls lists the files and directory
+-A 
+lists all entries including those starting with '.'
+
+-a 
+lists all entries including those starting with '.'
+
+-b 
+displays non-printable characters as octal bytes with the form \ooo.
+
+-C 
+puts output into columns, sorted vertically; this is the default output format to the terminal.
+
+-c 
+uses the creation time of the file for sorting (-t) or displaying (-l).
+
+-d 
+does not display the contents of named directories, but show information on the directories themselves.
+
+-F 
+puts a / after each directory name, a * after every executable file, a | after every FIFO file, a @ after every symbolic link and a = after every socket.
+
+Note:
+Windows systems do not support FIFO files or sockets (as files) and consider all files that are not directories or symbolic links to be executable files. This option of the ls utility labels the files and directories display accordingly.
+
+-f 
+enables the -a option and disables the -C, -g, -l, -n, -o, -r, -s, and -t options. For each argument that is a directory, all directory entries are listed in the same order they are retrieved from the system (POSIX-compliant and UNIX systems only).
+-g 
+displays only the group ID numbers (on 2012/8.1/2012R2/10/2016/2019, POSIX-compliant and UNIX systems).
+
+-h 
+displays file sizes using more human-friendly units. Units used are:
+
+B       Bytes
+KB      Kilobytes
+MB      Megabytes
+GB      Gigabytes
+TB      Terabytes
+PB      Petabytes
+EB      Exabytes
+When this option is specified, each file size is displayed using the most appropriate unit and is rounded to two decimal places.
+
+-i 
+displays inode numbers along with file names (only on systems that support inode numbers, such as POSIX-compliant and UNIX systems).
+
+-k 
+displays size in kilobytes instead of blocks when specified with the -s option. If the -s option is not specified, this option has no effect.
+
+-L 
+follows symbolic links.
+
+Note:
+Symbolic links are only available on 2012/8.1/2012R2/2016/2019 systems with the NTFS file system.
+
+-l 
+displays permissions, links, owner, group, size, time, name; see Long Output Format.
+
+-m 
+displays names in single line, with commas separating names.
+
+-n 
+displays user ID and group IDs as numbers instead of names.
+
+-o 
+displays only the user ID of owner (POSIX-compliant and UNIX systems only).
+
+-p 
+puts / after directory names.
+
+-q 
+displays non-printable characters as ?.
+
+-R 
+lists subdirectories recursively.
+
+-r 
+sorts in reverse of usual order; you can combine this with other options that sort the list.
+
+-s 
+displays size in blocks (after the inode number, but before other information). If the -k option is also specified, the size is displayed in kilobytes instead.
+
+-t 
+sorts entries by time. By default, this option sorts the output by the modification times of files. You can change this with the -c and -u options.
+
+-streams 
+In long output, display number of streams (for file systems with alternate streams) after number of links, and enumerate those streams on a separate line (like -X). If -l is not specified, -streams has no effect.
+
+-timeout seconds 
+specifies the number of seconds that ls has to complete the operation before timing out and issuing an error. seconds is given in seconds.
+
+-u 
+uses the last access time for sorting (-t) or displaying (-l).
+
+-X attr 
+displays extended security attributes under Windows. This option turns on the -l (long listing) option. The attr argument is a string containing some of these characters:
+
+Character 	Meaning 
+A	file attributes in verbose format
+a	file attributes in terse format
+D	verbose file Discretionary Access Control Entries (2012/8.1/2012R2/10/2016/2019 only)
+d	terse file Discretionary Access Control Entries (2012/8.1/2012R2/10/2016/2019 only)
+If both A and a or both D and d are in attr, ls uses the last one given on the command line. See Extended Attribute Descriptions.
+
+-x 
+puts output into columns sorted across the rows.
+
+-1 
+forces single column output.
+
+Note:
+When you specify options that are mutually exclusive (for example, -c and -u), the option that appears last on the command line is used.
+
+
+2)Long list the content with file, directory ownership, permissions,sizes, etc…
+The first character identifies the file type:
+
+-    Regular file
+b    Block special file
+c    Character special file
+d    Directory
+l    Symbolic link
+n    Network file
+p    FIFO
+s    Socket
+For a regular file the '-' may be replaced by:
+
+D    Demand recall file
+E    Encrypted file
+O    Offline file
+S    Sparse file
+The next nine characters are in three groups of three; they describe the permissions on the file. The first group of three describes owner permissions; the second describes group permissions; the third describes other (or world) permissions. Because Windows systems do not support group and other permissions, these are copies of the owner's permissions. Characters that may appear are:
+
+r    Permission to read file
+w    Permission to write to file
+x    Permission to execute file
+a    Archive bit is on (file has not been backed up)
+c    Compressed file
+s    System file
+h    Hidden file
+t    Temporary file
+On Windows systems, most of the permissions shown are artificial, with no real meaning. The w bit is set according to the ReadOnly attribute, and the rx bits are always set on.
+
+You can change some permissions with the chmod command.
+
+After the permissions comes the number of links to the file.
+
+Next comes the name of the owner of the file or directory. On file systems that don't support 2012/8.1/2012R2/10/2016/2019 security, the owner name cannot be determined and the owner ID number is displayed instead. Under 2012/8.1/2012R2/10/2016/2019 the name of the owner of a file is displayed if the file's SIDs can be obtained and if these SIDs have an associated name in the SAM database. If the file has a SID associated with it, but the name of the SID cannot be determined, then the value of the SID is displayed. (This can happen when the current user is not in the domain that was used when the file was created.) If the file does not have a SID (for example, if it is on a non-NTFS file system), or if the file security information cannot be accessed because the file is locked by another process, then the user name appears as <unavail>.
+
+Note:
+When a listed file is owned by the local computer, the owner is displayed as computer_name\ where computer_name is the name of the local computer.
+
+Then comes the name of the group that owns the file or directory. On Windows systems, the same rules are followed for the group name as for the owner name.
+
+Following this is the size of the file, expressed in bytes.
+
+After this comes a date and time. For a file, this is the time that the file was last changed; for a directory, it is the time that the directory was created. The -c and -u options can change which time value is used. If the date is more than six months old or if the date is in the future, the year is shown instead of the time.
+
+The last item on the line is the name of the file or directory.
+For ls -X A or ls -X a, the display format is:
+
+Attributes: attributelist
+where attributelist is a comma-separated list of one or more of:
+
+Verbose	Terse 
+Archive	A
+Compressed	C
+Directory	D
+Encrypted	E
+Hidden	H
+Normal	N
+Offline	O
+ReparsePoint	R
+ReadOnly	RO
+Sparse	SP
+System	S
+Temporary	T
+For ls -X D or ls -X d, the display format is:
+
+ACE: perm usergrpname ace_flags accessmode
+where:
+
+perm 
+is one of Allow or Deny.
+
+usergrpname 
+is the user or group name as taken from the 2012/8.1/2012R2/10/2016/2019 Security Access Manager registry. Any spaces embedded in the name are replaced by + characters.
+
+ace_flags 
+is a comma-separated list of the flags for Discretionary Access Control Entities:
+
+Verbose	Terse 
+ContainerInheritAce	CIA
+FailedAccessAceFlag	FAAF
+InheritOnlyAce	IOA
+NoPropagateInheritAce	NPIA
+ObjectInheritAce	OIA
+SuccessAccessAceFlag	SAAF
+If no flags are set, ls displays a single -. ACE stands for Access Control Entry; for more information, see your 2012/8.1/2012R2/10/2016/2019 system documentation.
+
+accessmode 
+is the set of access permissions (if Allow is displayed) or restrictions (if Deny is displayed) for this ACE. These can be any or none of the following:
+
+Verbose	Terse 	Note
+Read	R	Read file data or list directory entries
+Write	W	Write file data or create new file in directory
+eXecute	X	Execute a file or traverse a directory
+Append	A	Append data to a file or add subdirectory
+DeleteChild	DC	For a directory, delete entries in directory
+ReadEa	RE	Read extended attributes
+WriteEa	WE	Write extended attributes
+ReadAttr	RA	Read attributes
+WriteAttr	WA	Write attributes
+Delete	D	Delete access
+ReadControl	RC	Read access to the owner, group, and discretionary access control list (ACL) of the security descriptor
+WriteDac	WD	Write access to the owner, group, and discretionary access control list (ACL) of the security descriptor
+takeOwnership	O	Write access to the owner
+Synchronize	S	Synchronize access
+
+
+3)Which command is used to switch directory from one to another.
+cd command is used to switch directory from one to another.
+
+
+4)Which command is used to print the text or any variables value in the Console/Terminal?
+echo command is used to print the text or any variables value in the Terminal.
+
+
+5)Is linux a case-sensitive operating system?
+Yes is linux a case-sensitive operating system. Each file would have different contents – Linux treats capitalized letters and lower-case letters as different characters.
+
+
+6)Is, "Ls" same as "ls"?
+ls alone will print your current directory's contents; you can use ls with arguments to display other information.Ls (short for list) is used on Linux and other Unix-like operating systems to list information about files.
+
+
+7)how do you change the currrently logged in user to another user?
+su [options] [username [arguments]]
+
+
+8)Which command is used to leave a shell environment that you are currently logged in to?
+Exit command is used to leave a shell environment that you are currently logged in.
+
+
+9)How do you reboot the system?
+Type sudo reboot to reboot the system.
+
+
+10)How do you shutdown the system?
+shutdown [OPTIONS] [TIME] [MESSAGE]
+
+
+11)In which file the history of commands are stored in?
+.bash_history
+
+
+12)How many lines of history does the system keep and from where you can change it?
+By default 1000 lines of history will be stored, as per the values stored in the $HISTSIZE and $HISTFILESIZE variables.
+
+
+13)How can you modify bash's history behaviour.
+PROMPT_COMMAND='history -a'
+
+
+14)What are the different types of shell and where are they used and how do we use them?
+a) The c-shell:Denoted as csh ,It incorporated features such as aliases and command history. It includes helpful programming features like built-in arithmetic and C-like expression syntax.
+b) The Bourne-shell: Denoted as sh, It is the original UNIX shell. It is faster and more preferred. It lacks features for interactive use like the ability to recall previous commands. It also lacks built-in arithmetic and logical expression handling. 
+c)The Korn-shell: Denoted as ksh ,It is a superset of the Bourne shell.So it supports everything in the Bourne shell.It has interactive features. It includes features like built-in arithmetic and C-like arrays, functions, and string-manipulation facilities.It is faster than C shell. It is compatible with script written for C shell.
+d) GNU Bourne-Again Shell : Denoted as bash. It is compatible to the Bourne shell. It includes features from Korn and Bourne shell.
+
+
+15)What is the difference between login shell and non-login shell?
+A Login shell is started after a successful login, using /bin/login, by reading the /etc/passwd file. Login shell is the first process that executes under our user ID when we log in to a session.If the output is the name of our shell, prepended by a dash, then it is a login shell.
+For example -bash, -su etc.
+A Non login shell is started by a program without a login. In this case, the program just passes the name of the shell executable. For example, for a Bash shell it will be simply bash.If the output is the name of our shell, does not prepend by a dash, then it is a Non login shell.
+For example bash, su etc.
+
+
+16)How do we start login shell and non-login shell?
+Login shell is initiated by using the -l or --login option, or placing a dash as the initial character of the command name, for example invoking bash as -bash.
+You can allow Terminal to start a login shell. Your default shell will be started with a dash character prepended to its name.
+a)Press the menu button in the top-right corner of the window and select Preferences.
+b)In the sidebar, select your current profile in the Profiles section.
+c)Select Command.
+d)Under the Command label, select Run command as a login shell.
+
+A Non login shell is started by a program without a login. In this case, the program just passes the name of the shell executable. For example, for a Bash shell it will be simply bash.
+
+
+17)What happens when you start a login shell (which files are read and used and Why)?
+When Bash is invoked as an interactive login shell, or as a non-interactive shell with the --login option, it first reads and executes commands from the file /etc/profile, if that file exists. After reading that file, it looks for ~/.bash_profile, ~/.bash_login, and ~/.profile, in that order, and reads and executes commands from the first one that exists and is readable.When an interactive login shell exits, or a non-interactive login shell executes the exit builtin command, Bash reads and executes commands from the file ~/.bash_logout, if it exists.
+
+
+18)What happens when you start a non-login shell (Which files are read and used and Why)?
+When an interactive shell that is not a login shell is started, Bash reads and executes commands from ~/.bashrc, if that file exists. This may be inhibited by using the --norc option. The --rcfile file option will force Bash to read and execute commands from file instead of ~/.bashrc.
+
+
+19)What are Shell Configuration Files, why do we need it?
+To configure Bash to use our custom settings we need to configure various configuration files that are used. Some of these files are only executed at "login", others are executed each time a new instance of your Bash shell is started.
+
+
+20)Explain the Order of file usage from the system/user's home directory when user logs in to the System.
+The root (administrative) user is the only user who has its home directory in a different location by default. The path of the root user is '/root/', where it has control under all the directories and files.There are multiple ways to access and return to the home directory. Some commands are very helpful for the directories such as cd, pwd, mkdir, pwd, ls, and rmdir. To access the home directory graphically, open the files application, and click on the Home option from the left side menu.
+
+
+21)What are Shell Variables, list major shell variables and what do they represent?
+The name of a variable can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character ( _).
+Defining Variables:variable_name=variable_value
+Accessing Values:NAME="yashasvi pawar"
+                 echo $NAME
+Read-only Variables:NAME="yashasvi pawar"
+                    readonly NAME
+                    NAME="hello"
+Unsetting Variables:unset variable_name
+
+
+22)How we see all our env variables?
+printenv is used to display all environmnet variables.
+
+
+23)How we see all env variables in alphabical order?
+sort filename.txt
+
+
+24)What Format does the env var and its values are stored?
+export Variable=value ,to set value of an environment variable.
+
+
+25)How do you create your own varible?
+variable_name=variable_value
+
+
+26)How do you start a new bash shell?
+Type bash in the terminal and press enter to start a new bash shell.
+
+
+27)Difference between Local/Shell variables to Global Variable.
+Local variable is declared inside a function whereas Global variable is declared outside the function. Local variables are created when the function has started execution and is lost when the function terminates, on the other hand, Global variable is created as execution starts and is lost when the program ends.
+
+
+28)Making a variable accessible from other the shell in the system.
+Lets say I have a shell script named test.sh with:
+#!/bin/bash
+TESTVARIABLE=hello
+./test2.sh
+
+My test2.sh looks like this:
+#!/bin/bash
+echo ${TESTVARIABLE}
+
+
+29)What is Globbing? Explain in depth with examples?
+The Bash shell feature that is used for matching or expanding specific types of patterns is called globbing. Globbing is mainly used to match filenames or searching for content in a file. Globbing uses wildcard characters to create the pattern.
+‘?’ is used to match any single character. You can use ‘?’ for multiple times for matching multiple characters.
+‘*’ is used to match zero or more characters. If you have less information to search any file or information then you can use ‘*’ in globbing pattern.
+‘[]’ is used to match the character from the range. 
+we can use ‘^’ with square bracket to define globbing pattern more specifically. ‘^’ can be used inside or outside of square bracket. ‘^’ is used outside the square bracket to search those contents of the file that starts with a given range of characters. ‘^’ is used inside the square bracket to show all content of the file by highlighting the lines start with a given range of characters . You can use different types of globbing patterns for searching particular content from a file. ‘grep’ command is used for content searching in bash. 
+‘{}’ can be used to match filenames with more than one globbing patterns. Each pattern is separated by ‘,’ in curly bracket without any space.
+‘|’ sign is also used for applying more than one condition on globbing pattern. Each pattern is separated by ‘|’ symbol in the command.
+Example:
+ls [[:alpha:]]* : Will display the directories starting with a alphabet (either in lower or uppercase) and ending 
+          with any characters.
+ls *[[:alnum:]]*.* : Will display the files (of any type) containing a alphabet or a digit but may start 
+             or end with any length of characters.
+ls *[[:digit:]] : Will display the directories which may start with any length of characters but ending with a digit.
+ls ?[[:lower:]] : Will display the directories starting with exactly one character and ending with a lowercase 
+          character.
+ls *[[:upper:]]* : Will display the directories containing a alphabet or digit which may start or end with any 
+          length of characters.
+
+
+30)What is Quoting? and Why do we need it?
+In Linux Shell, many special characters have their own special meanings. Sometimes they are used to perform an action while other times they are just used as a character, so the quoting mechanism performs this task it makes us use them in whatever way we want to. 
+Metacharacters: These are the special characters that are first interpreted by the shell before passing the same to the command. They are also known as shell wildcards. 
+
+
+31)Write few(minimum 3) unique examples that shows, how a particular problem is solved using Quoting.
+$ echo \"2 \* 3 \> 5\" is a valid inequality.
+op:"2 * 3 > 5" is a valid inequality.
+$ echo "hello"
+op: hello
+$ echo \"hello\"
+op:"hello"
+
+
+32)How do you find a particular files/directories based on a particular search criteria?
+The locate command in Linux is used to find the files by name. There is two most widely used file searching utilities accessible to users are called find and locate. The locate utility works better and faster than find command counterpart because instead of searching the file system when a file search is initiated, it would look through a database. 
+The find command in UNIX is a command line utility for walking a file hierarchy. It can be used to find files and directories and perform subsequent operations on them. It supports searching by file, folder, name, creation date, modification date, owner and permissions. By using the ‘-exec’ other UNIX commands can be executed on files or folders found.
+The whereis command in Linux is used to locate the binary, source, and manual page files for a command. This command searches for files in a restricted set of locations binary file directories, man page directories, and library directories. It is usually used to find executables of a program, its man pages and configuration files.
+
+
+33)Write major difference between locate, find and whereis?
+whereis command is used to know the location of commands, locate and find commands are used to find the files.
+The big difference is that find searches real files recursively down a given directory, while locate searches a database without requiring specific directory. Thus, if you have saved a file before updating database, find will find it , but locate won't.
+As for whereis it search only inside those directories that are mentioned in your PATH variable and only those with executable permission set.
+
+
+34)How Globbing is different from locate, find and whereis?
+Globbing is mainly used to match filenames or searching for content in a file. File globbing is the operation that recognizes these patterns and does the job of file path expansion.
+Whereas locate, find and whereis are used to find the files without specific directory.
+
+
+35)Explain the Linux File System.
+A Linux file system is a structured collection of files on a disk drive or a partition. A partition is a segment of memory and contains some specific data. In our machine, there can be various partitions of the memory. Generally, every partition contains a file system.
+Linux file system is generally a built-in layer of a Linux operating system used to handle the data management of the storage. It helps to arrange the file on the disk storage. It manages the file name, file size, creation date, and much more information about a file.
+Linux file system has a hierarchal file structure as it contains a root directory and its subdirectories. All other directories can be accessed from the root directory. A partition usually has only one file system, but it may have more than one file system.
+When we install the Linux operating system, Linux offers many file systems such as Ext, Ext2, Ext3, Ext4, JFS, ReiserFS, XFS, btrfs, and swap.
+
+
+36)Explain absolute and Relative Paths.
+An absolute path is defined as specifying the location of a file or directory from the root directory(/).An absolute path is a complete path from start of actual file system from / directory.
+Relative path is defined as the path related to the present working directly(pwd). It starts at your current directory and never starts with a / .
+changing directory to /var/log/kernel by using relative path concept.
+pwd/var/logcd kernel
+Changing directory to /var/log/kernel using absolute path concept.
+cd /var/log/kernel
+
+
+37)What are the different ways of creating a File in linux System? Write an example of each and the difference between them.
+Create a File with Touch Command. Eg. touch test.txt
+Create a New File With the Redirect Operator. Eg. > test.txt
+Create a New File With the cat command. Eg. cat > test.txt
+Create File with echo Command. Eg. echo ‘Random sample text’ > op.txt
+Vi Text Editor. Eg. vi test.txt
+Vim Text Editor. Eg. vim test.txt
+
+
+38)n how many ways we can delete the files from linux system? write an example of each and the difference between them.
+Remove using unlink. Eg. $ unlink test.txt
+Remove single file. Eg. $rm test.txt
+Remove multiple files. Eg. $ rm {file-name-1} {file-name-2} {file-name-3} ... {file-name-N}
+Remove directory. Eg. $ rm -d {dir-name}
+Find and remove files. Eg. $ find {dir-to-search} -type f -name {pattern} -exec rm -f {} \;
+Find and remove empty directories. Eg.$ find {dir-to-search} -type d -empty -delete
+Remove Directories in Linux with rmdir Command. Eg. rmdir [dir_name]
+
+
+39)Archiving files using linux command, write a command to archive set of files from linux commands.
+The Linux ‘tar’ stands for tape archive, is used to create Archive and extract the Archive files. tar command in Linux is one of the important command which provides archiving functionality in Linux. We can use Linux tar command to create compressed or uncompressed Archive files and also maintain and modify them. 
+syntax: tar [options] [archive-file] [file or directory to be archived]
+-c : Creates Archive 
+-x : Extract the archive 
+-f : creates archive with given filename 
+-t : displays or lists files in archived file 
+-u : archives and adds to an existing archive file 
+-v : Displays Verbose Information 
+-A : Concatenates the archive files 
+-z : zip, tells tar command that creates tar file using gzip 
+-j : filter archive tar file using tbzip 
+-W : Verify a archive file 
+-r : update or add file or directory in already existed .tar file 
+
+
+40)Display the size of the file in human readable format.
+yashasvi@yashasvi:~$ls -lh
+total 140K
+-rwxrwxr-x 1 yashasvi yashasvi  113 Aug  6 18:20 assignment10.sh
+-rwxrwxr-x 1 yashasvi yashasvi  113 Aug  6 18:32 assignment11.sh
+-rwxrwxr-x 1 yashasvi yashasvi  201 Aug  6 18:39 assignment12.sh
+-rwxrwxr-x 1 yashasvi yashasvi   64 Aug  6 18:46 assignment13.sh
+-rwxrwxr-x 1 yashasvi yashasvi  247 Aug  6 18:54 assignment14.sh
+-rwxrwxr-x 1 yashasvi yashasvi  117 Aug  6 18:59 assignment15.sh
+-rwxrwxr-x 1 yashasvi yashasvi   12 Aug  6 19:08 assignment16.sh
+-rwxrwxr-x 1 yashasvi yashasvi   74 Aug  6 19:25 assignment18.sh
+-rwxrwxr-x 1 yashasvi yashasvi   34 Aug  6 12:57 assignment1.sh
+-rwxrwxr-x 1 yashasvi yashasvi  152 Aug  6 19:36 assignment20.sh
+-rwxrwxr-x 1 yashasvi yashasvi  120 Aug  6 19:41 assignment21.sh
+-rwxrwxr-x 1 yashasvi yashasvi  274 Aug  6 19:47 assignment22.sh
+-rwxrwxr-x 1 yashasvi yashasvi  181 Aug  6 19:55 assignment23.sh
+-rwxrwxr-x 1 yashasvi yashasvi  246 Aug  6 13:14 assignment2.sh
+-rwxrwxr-x 1 yashasvi yashasvi  245 Aug  6 13:24 assignment3.sh
+-rwxrwxr-x 1 yashasvi yashasvi  121 Aug  6 13:58 assignment4.sh
+-rwxrwxr-x 1 yashasvi yashasvi  124 Aug  6 14:11 assignment5.sh
+-rwxrwxr-x 1 yashasvi yashasvi  124 Aug  6 14:24 assignment6.sh
+-rwxrwxr-x 1 yashasvi yashasvi  146 Aug  6 16:30 assignment7.sh
+-rwxrwxr-x 1 yashasvi yashasvi  246 Aug  6 18:02 assignment8.sh
+-rwxrwxr-x 1 yashasvi yashasvi  161 Aug  6 18:10 assignment9.sh
+-rw-rw-r-- 1 yashasvi yashasvi 5.7K Aug  6 20:02 assignment_op
+drwxr-xr-x 2 yashasvi yashasvi 4.0K Aug  6 11:12 Desktop
+drwxr-xr-x 2 yashasvi yashasvi 4.0K Aug  3 22:14 Documents
+drwxr-xr-x 2 yashasvi yashasvi 4.0K Aug  3 22:14 Downloads
+-rwxrwxr-x 1 yashasvi yashasvi  127 Aug  6 11:30 hello.sh
+-rw-rw-r-- 1 yashasvi yashasvi   34 Aug  6 19:07 hero
+drwxr-xr-x 2 yashasvi yashasvi 4.0K Aug  6 09:42 Music
+drwxr-xr-x 2 yashasvi yashasvi 4.0K Aug  3 22:14 Pictures
+drwxr-xr-x 2 yashasvi yashasvi 4.0K Aug  3 22:14 Public
+-rw-rw-r-- 1 yashasvi yashasvi   13 Aug  7 13:33 samples
+drwxr-xr-x 3 yashasvi yashasvi 4.0K Aug  4 11:20 snap
+drwxr-xr-x 2 yashasvi yashasvi 4.0K Aug  3 22:14 Templates
+drwxr-xr-x 2 yashasvi yashasvi 4.0K Aug  3 22:14 Videos
+
+
+
+41)Show all files and folders including hidden one.
+yashasvi@yashasvi:~$ ls -a
+hidden:
+                assignment22.sh  .bashrc    .profile
+..               assignment23.sh  .cache     Public
+assignment10.sh  assignment2.sh   .config    samples
+assignment11.sh  assignment3.sh   Desktop    snap
+assignment12.sh  assignment4.sh   Documents  .ssh
+assignment13.sh  assignment5.sh   Downloads  .sudo_as_admin_successful
+assignment14.sh  assignment6.sh   .gnupg     Templates
+assignment15.sh  assignment7.sh   hello.sh   .vboxclient-clipboard.pid
+assignment16.sh  assignment8.sh   hero       .vboxclient-display-svga-x11.pid
+assignment18.sh  assignment9.sh   .local     .vboxclient-draganddrop.pid
+assignment1.sh   assignment_op    .mozilla   .vboxclient-seamless.pid
+assignment20.sh  .bash_history    Music      Videos
+assignment21.sh  .bash_logout     Pictures
+
+
+42)list directories recursively.
+yashasvi@yashasvi:~$ ls -R
+recursive:
+assignment10.sh  assignment18.sh  assignment3.sh  assignment_op  Pictures
+assignment11.sh  assignment1.sh   assignment4.sh  Desktop        Public
+assignment12.sh  assignment20.sh  assignment5.sh  Documents      samples
+assignment13.sh  assignment21.sh  assignment6.sh  Downloads      snap
+assignment14.sh  assignment22.sh  assignment7.sh  hello.sh       Templates
+assignment15.sh  assignment23.sh  assignment8.sh  hero           Videos
+assignment16.sh  assignment2.sh   assignment9.sh  Music
+./Desktop:
+
+./Documents:
+
+./Downloads:
+
+./Music:
+
+./Pictures:
+
+./Public:
+
+./snap:
+snap-store
+
+./snap/snap-store:
+547  common  current
+
+./snap/snap-store/547:
+
+./snap/snap-store/common:
+
+./Templates:
+
+./Videos:
+
+
+43)Sort the files by size with largest at the top.
+yashasvi@yashasvi:~$ ls -as
+total 208
+-rw-rw-r--  1 yashasvi yashasvi 5816 Aug  6 20:02 assignment_op
+-rw-------  1 yashasvi yashasvi 4201 Aug  6 21:49 .bash_history
+drwxr-xr-x 17 yashasvi yashasvi 4096 Aug  7 13:33 .
+drwxr-xr-x  3 root     root     4096 Aug  3 21:44 ..
+drwx------ 14 yashasvi yashasvi 4096 Aug  6 09:23 .cache
+drwx------ 13 yashasvi yashasvi 4096 Aug  4 11:40 .config
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  6 11:12 Desktop
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  3 22:14 Documents
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  3 22:14 Downloads
+drwx------  3 yashasvi yashasvi 4096 Aug  7 13:32 .gnupg
+drwxr-xr-x  3 yashasvi yashasvi 4096 Aug  3 22:14 .local
+drwx------  5 yashasvi yashasvi 4096 Aug  4 14:45 .mozilla
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  6 09:42 Music
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  3 22:14 Pictures
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  3 22:14 Public
+drwxr-xr-x  3 yashasvi yashasvi 4096 Aug  4 11:20 snap
+drwx------  2 yashasvi yashasvi 4096 Aug  3 22:17 .ssh
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  3 22:14 Templates
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  3 22:14 Videos
+-rw-r--r--  1 yashasvi yashasvi 3771 Aug  3 21:44 .bashrc
+-rw-r--r--  1 yashasvi yashasvi  807 Aug  3 21:44 .profile
+-rwxrwxr-x  1 yashasvi yashasvi  274 Aug  6 19:47 assignment22.sh
+-rwxrwxr-x  1 yashasvi yashasvi  247 Aug  6 18:54 assignment14.sh
+-rwxrwxr-x  1 yashasvi yashasvi  246 Aug  6 13:14 assignment2.sh
+-rwxrwxr-x  1 yashasvi yashasvi  246 Aug  6 18:02 assignment8.sh
+-rwxrwxr-x  1 yashasvi yashasvi  245 Aug  6 13:24 assignment3.sh
+-rw-r--r--  1 yashasvi yashasvi  220 Aug  3 21:44 .bash_logout
+-rwxrwxr-x  1 yashasvi yashasvi  201 Aug  6 18:39 assignment12.sh
+-rwxrwxr-x  1 yashasvi yashasvi  181 Aug  6 19:55 assignment23.sh
+-rwxrwxr-x  1 yashasvi yashasvi  161 Aug  6 18:10 assignment9.sh
+-rwxrwxr-x  1 yashasvi yashasvi  152 Aug  6 19:36 assignment20.sh
+-rwxrwxr-x  1 yashasvi yashasvi  146 Aug  6 16:30 assignment7.sh
+-rwxrwxr-x  1 yashasvi yashasvi  127 Aug  6 11:30 hello.sh
+-rwxrwxr-x  1 yashasvi yashasvi  124 Aug  6 14:11 assignment5.sh
+-rwxrwxr-x  1 yashasvi yashasvi  124 Aug  6 14:24 assignment6.sh
+-rwxrwxr-x  1 yashasvi yashasvi  121 Aug  6 13:58 assignment4.sh
+-rwxrwxr-x  1 yashasvi yashasvi  120 Aug  6 19:41 assignment21.sh
+-rwxrwxr-x  1 yashasvi yashasvi  117 Aug  6 18:59 assignment15.sh
+-rwxrwxr-x  1 yashasvi yashasvi  113 Aug  6 18:20 assignment10.sh
+-rwxrwxr-x  1 yashasvi yashasvi  113 Aug  6 18:32 assignment11.sh
+-rwxrwxr-x  1 yashasvi yashasvi   74 Aug  6 19:25 assignment18.sh
+-rwxrwxr-x  1 yashasvi yashasvi   64 Aug  6 18:46 assignment13.sh
+-rwxrwxr-x  1 yashasvi yashasvi   34 Aug  6 12:57 assignment1.sh
+-rw-rw-r--  1 yashasvi yashasvi   34 Aug  6 19:07 hero
+-rw-rw-r--  1 yashasvi yashasvi   13 Aug  7 13:33 samples
+-rwxrwxr-x  1 yashasvi yashasvi   12 Aug  6 19:08 assignment16.sh
+-rw-r-----  1 yashasvi yashasvi    5 Aug  7 13:30 .vboxclient-clipboard.pid
+-rw-r-----  1 yashasvi yashasvi    5 Aug  7 13:30 .vboxclient-display-svga-x11.pid
+-rw-r-----  1 yashasvi yashasvi    5 Aug  7 13:30 .vboxclient-draganddrop.pid
+-rw-r-----  1 yashasvi yashasvi    5 Aug  7 13:30 .vboxclient-seamless.pid
+-rw-r--r--  1 yashasvi yashasvi    0 Aug  3 22:19 .sudo_as_admin_successful
+
+
+44)Sort the files by last time modified displaying the newest first.
+yashasvi@yashasvi:~$ ls -lt
+total 140
+-rw-rw-r-- 1 yashasvi yashasvi   13 Aug  7 13:33 samples
+-rw-rw-r-- 1 yashasvi yashasvi 5816 Aug  6 20:02 assignment_op
+-rwxrwxr-x 1 yashasvi yashasvi  181 Aug  6 19:55 assignment23.sh
+-rwxrwxr-x 1 yashasvi yashasvi  274 Aug  6 19:47 assignment22.sh
+-rwxrwxr-x 1 yashasvi yashasvi  120 Aug  6 19:41 assignment21.sh
+-rwxrwxr-x 1 yashasvi yashasvi  152 Aug  6 19:36 assignment20.sh
+-rwxrwxr-x 1 yashasvi yashasvi   74 Aug  6 19:25 assignment18.sh
+-rwxrwxr-x 1 yashasvi yashasvi   12 Aug  6 19:08 assignment16.sh
+-rw-rw-r-- 1 yashasvi yashasvi   34 Aug  6 19:07 hero
+-rwxrwxr-x 1 yashasvi yashasvi  117 Aug  6 18:59 assignment15.sh
+-rwxrwxr-x 1 yashasvi yashasvi  247 Aug  6 18:54 assignment14.sh
+-rwxrwxr-x 1 yashasvi yashasvi   64 Aug  6 18:46 assignment13.sh
+-rwxrwxr-x 1 yashasvi yashasvi  201 Aug  6 18:39 assignment12.sh
+-rwxrwxr-x 1 yashasvi yashasvi  113 Aug  6 18:32 assignment11.sh
+-rwxrwxr-x 1 yashasvi yashasvi  113 Aug  6 18:20 assignment10.sh
+-rwxrwxr-x 1 yashasvi yashasvi  161 Aug  6 18:10 assignment9.sh
+-rwxrwxr-x 1 yashasvi yashasvi  246 Aug  6 18:02 assignment8.sh
+-rwxrwxr-x 1 yashasvi yashasvi  146 Aug  6 16:30 assignment7.sh
+-rwxrwxr-x 1 yashasvi yashasvi  124 Aug  6 14:24 assignment6.sh
+-rwxrwxr-x 1 yashasvi yashasvi  124 Aug  6 14:11 assignment5.sh
+-rwxrwxr-x 1 yashasvi yashasvi  121 Aug  6 13:58 assignment4.sh
+-rwxrwxr-x 1 yashasvi yashasvi  245 Aug  6 13:24 assignment3.sh
+-rwxrwxr-x 1 yashasvi yashasvi  246 Aug  6 13:14 assignment2.sh
+-rwxrwxr-x 1 yashasvi yashasvi   34 Aug  6 12:57 assignment1.sh
+-rwxrwxr-x 1 yashasvi yashasvi  127 Aug  6 11:30 hello.sh
+drwxr-xr-x 2 yashasvi yashasvi 4096 Aug  6 11:12 Desktop
+drwxr-xr-x 2 yashasvi yashasvi 4096 Aug  6 09:42 Music
+drwxr-xr-x 3 yashasvi yashasvi 4096 Aug  4 11:20 snap
+drwxr-xr-x 2 yashasvi yashasvi 4096 Aug  3 22:14 Pictures
+drwxr-xr-x 2 yashasvi yashasvi 4096 Aug  3 22:14 Videos
+drwxr-xr-x 2 yashasvi yashasvi 4096 Aug  3 22:14 Documents
+drwxr-xr-x 2 yashasvi yashasvi 4096 Aug  3 22:14 Downloads
+drwxr-xr-x 2 yashasvi yashasvi 4096 Aug  3 22:14 Public
+drwxr-xr-x 2 yashasvi yashasvi 4096 Aug  3 22:14 Templates
+
+
+45)List all the environment variables set for the current shell environment.
+yashasvi@yashasvi:~$ printenv Home
+SHELL=/bin/bash
+SESSION_MANAGER=local/yashasvi:@/tmp/.ICE-unix/1591,unix/yashasvi:/tmp/.ICE-unix/1591
+QT_ACCESSIBILITY=1
+COLORTERM=truecolor
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+XDG_MENU_PREFIX=gnome-
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+LANGUAGE=en_IN:en
+GNOME_SHELL_SESSION_MODE=ubuntu
+SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+XMODIFIERS=@im=ibus
+DESKTOP_SESSION=ubuntu
+SSH_AGENT_PID=1518
+GTK_MODULES=gail:atk-bridge
+PWD=/home/yashasvi
+LOGNAME=yashasvi
+XDG_SESSION_DESKTOP=ubuntu
+XDG_SESSION_TYPE=x11
+GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+XAUTHORITY=/run/user/1000/gdm/Xauthority
+GJS_DEBUG_TOPICS=JS ERROR;JS LOG
+WINDOWPATH=2
+HOME=/home/yashasvi
+USERNAME=yashasvi
+IM_CONFIG_PHASE=1
+LANG=en_IN
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+VTE_VERSION=6003
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/35a6e136_5a8d_492f_8ff7_d0e5ff96d8f7
+INVOCATION_ID=0663836ba9784417b836cd3d1e7340d8
+MANAGERPID=1299
+GJS_DEBUG_OUTPUT=stderr
+LESSCLOSE=/usr/bin/lesspipe %s %s
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+LESSOPEN=| /usr/bin/lesspipe %s
+USER=yashasvi
+GNOME_TERMINAL_SERVICE=:1.82
+DISPLAY=:0
+SHLVL=1
+QT_IM_MODULE=ibus
+XDG_RUNTIME_DIR=/run/user/1000
+JOURNAL_STREAM=8:33553
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+GDMSESSION=ubuntu
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+_=/usr/bin/printenv
+
+
+46)Did you notice something in the output of "env" command?
+Yes, env command contains all the information and print all the details with the printenv command.
+
+
+47)Print the value of the env variable "PATH" on the console.
+yashasvi@yashasvi:~$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+
+48)Diplay the location of a program/command, where it is installed.
+yashasvi@yashasvi:~$ which bash
+/usr/bin/bash
+
+
+49)Display your currently logged in user.
+yashasvi@yashasvi:~$ whoami
+yashasvi
+
+
+50)Display all the major running processes in the system.
+yashasvi@yashasvi:~$ ps -A
+PID TTY          TIME CMD
+      1 ?        00:00:03 systemd
+      2 ?        00:00:00 kthreadd
+      3 ?        00:00:00 rcu_gp
+      4 ?        00:00:00 rcu_par_gp
+      6 ?        00:00:00 kworker/0:0H-kblockd
+      8 ?        00:00:00 kworker/u4:0-ext4-rsv-conversion
+      9 ?        00:00:00 mm_percpu_wq
+     10 ?        00:00:00 ksoftirqd/0
+     11 ?        00:00:01 rcu_sched
+     12 ?        00:00:00 migration/0
+     13 ?        00:00:00 idle_inject/0
+     14 ?        00:00:00 cpuhp/0
+     15 ?        00:00:00 cpuhp/1
+     16 ?        00:00:00 idle_inject/1
+     17 ?        00:00:00 migration/1
+     18 ?        00:00:00 ksoftirqd/1
+     20 ?        00:00:00 kworker/1:0H-kblockd
+     21 ?        00:00:00 kdevtmpfs
+     22 ?        00:00:00 netns
+     23 ?        00:00:00 rcu_tasks_kthre
+     24 ?        00:00:00 rcu_tasks_rude_
+     25 ?        00:00:00 rcu_tasks_trace
+     26 ?        00:00:00 kauditd
+     27 ?        00:00:00 khungtaskd
+     28 ?        00:00:00 oom_reaper
+     29 ?        00:00:00 writeback
+     30 ?        00:00:00 kcompactd0
+     31 ?        00:00:00 ksmd
+     32 ?        00:00:00 khugepaged
+     37 ?        00:00:00 kworker/1:1-events
+     79 ?        00:00:00 kintegrityd
+     80 ?        00:00:00 kblockd
+     81 ?        00:00:00 blkcg_punt_bio
+     82 ?        00:00:00 tpm_dev_wq
+     83 ?        00:00:00 ata_sff
+     84 ?        00:00:00 md
+     85 ?        00:00:00 edac-poller
+     86 ?        00:00:00 devfreq_wq
+     87 ?        00:00:00 watchdogd
+     88 ?        00:00:00 kworker/u4:1-ext4-rsv-conversion
+     89 ?        00:00:00 pm_wq
+     91 ?        00:00:01 kswapd0
+     92 ?        00:00:00 ecryptfs-kthrea
+     94 ?        00:00:00 kthrotld
+     95 ?        00:00:00 acpi_thermal_pm
+     96 ?        00:00:00 scsi_eh_0
+     97 ?        00:00:00 scsi_tmf_0
+     98 ?        00:00:00 scsi_eh_1
+     99 ?        00:00:00 scsi_tmf_1
+    101 ?        00:00:00 vfio-irqfd-clea
+    102 ?        00:00:00 ipv6_addrconf
+    112 ?        00:00:00 kstrp
+    115 ?        00:00:00 zswap-shrink
+    116 ?        00:00:00 kworker/u5:0
+    121 ?        00:00:00 charger_manager
+    122 ?        00:00:00 kworker/1:1H-kblockd
+    161 ?        00:00:00 kworker/0:2-events
+    162 ?        00:00:00 kworker/1:3-events
+    163 ?        00:00:00 scsi_eh_2
+    164 ?        00:00:00 scsi_tmf_2
+    186 ?        00:00:00 kworker/0:1H-kblockd
+    188 ?        00:00:00 jbd2/sda5-8
+    189 ?        00:00:00 ext4-rsv-conver
+    228 ?        00:00:01 systemd-journal
+    261 ?        00:00:00 irq/18-vmwgfx
+    262 ?        00:00:00 ttm_swap
+    263 ?        00:00:00 loop0
+    264 ?        00:00:00 loop1
+    266 ?        00:00:01 systemd-udevd
+    267 ?        00:00:00 loop2
+    271 ?        00:00:00 loop3
+    272 ?        00:00:00 loop4
+    273 ?        00:00:00 loop5
+    274 ?        00:00:00 loop6
+    275 ?        00:00:00 loop7
+    276 ?        00:00:00 loop8
+    277 ?        00:00:00 loop9
+    296 ?        00:00:00 iprt-VBoxWQueue
+    332 ?        00:00:00 cryptd
+    513 ?        00:00:00 systemd-resolve
+    514 ?        00:00:00 systemd-timesyn
+    541 ?        00:00:00 accounts-daemon
+    542 ?        00:00:00 acpid
+    544 ?        00:00:00 avahi-daemon
+    545 ?        00:00:00 cron
+    546 ?        00:00:00 cupsd
+    547 ?        00:00:02 dbus-daemon
+    548 ?        00:00:00 NetworkManager
+    553 ?        00:00:00 irqbalance
+    555 ?        00:00:00 networkd-dispat
+    558 ?        00:00:02 polkitd
+    560 ?        00:00:00 rsyslogd
+    561 ?        00:00:05 snapd
+    562 ?        00:00:00 switcheroo-cont
+    564 ?        00:00:00 systemd-logind
+    566 ?        00:00:00 udisksd
+    568 ?        00:00:00 wpa_supplicant
+    573 ?        00:00:00 avahi-daemon
+    647 ?        00:00:00 cups-browsed
+    652 ?        00:00:00 dbus
+    653 ?        00:00:00 dbus
+    654 ?        00:00:00 dbus
+    658 ?        00:00:00 ModemManager
+    683 ?        00:00:00 unattended-upgr
+    724 ?        00:00:00 whoopsie
+    725 ?        00:00:00 kerneloops
+    727 ?        00:00:00 kerneloops
+    894 ?        00:00:00 VBoxService
+    902 ?        00:00:00 gdm3
+    926 ?        00:00:00 rtkit-daemon
+   1026 ?        00:00:00 upowerd
+   1272 ?        00:00:00 colord
+   1291 ?        00:00:00 gdm-session-wor
+   1299 ?        00:00:00 systemd
+   1300 ?        00:00:00 (sd-pam)
+   1305 ?        00:00:00 pulseaudio
+   1307 ?        00:00:00 tracker-miner-f
+   1309 ?        00:00:01 dbus-daemon
+   1326 ?        00:00:00 gvfsd
+   1331 ?        00:00:00 gvfsd-fuse
+   1339 ?        00:00:00 gvfs-udisks2-vo
+   1344 ?        00:00:00 gvfs-gphoto2-vo
+   1348 ?        00:00:00 gvfs-mtp-volume
+   1352 ?        00:00:00 gvfs-afc-volume
+   1357 ?        00:00:00 gvfs-goa-volume
+   1361 ?        00:00:00 goa-daemon
+   1368 ?        00:00:00 goa-identity-se
+   1374 ?        00:00:00 gnome-keyring-d
+   1385 tty2     00:00:00 gdm-x-session
+   1387 tty2     00:00:36 Xorg
+   1408 tty2     00:00:00 gnome-session-b
+   1482 ?        00:00:00 VBoxClient
+   1483 ?        00:00:00 VBoxClient
+   1494 ?        00:00:00 VBoxClient
+   1495 ?        00:00:00 VBoxClient
+   1499 ?        00:00:00 VBoxClient
+   1501 ?        00:00:03 VBoxClient
+   1504 ?        00:00:00 VBoxClient
+   1505 ?        00:00:00 VBoxClient
+   1518 ?        00:00:00 ssh-agent
+   1543 ?        00:00:00 at-spi-bus-laun
+   1548 ?        00:00:00 dbus-daemon
+   1584 ?        00:00:00 gnome-session-c
+   1591 ?        00:00:00 gnome-session-b
+   1605 ?        00:01:14 gnome-shell
+   1633 ?        00:00:00 ibus-daemon
+   1634 ?        00:00:00 xdg-permission-
+   1636 ?        00:00:00 gnome-shell-cal
+   1645 ?        00:00:00 ibus-dconf
+   1646 ?        00:00:03 ibus-extension-
+   1650 ?        00:00:00 ibus-x11
+   1653 ?        00:00:00 ibus-portal
+   1661 ?        00:00:00 at-spi2-registr
+   1672 ?        00:00:00 evolution-sourc
+   1682 ?        00:00:00 gjs
+   1693 ?        00:00:00 gsd-a11y-settin
+   1694 ?        00:00:00 gsd-color
+   1697 ?        00:00:00 gsd-datetime
+   1702 ?        00:00:00 gsd-housekeepin
+   1704 ?        00:00:00 gsd-keyboard
+   1706 ?        00:00:00 gsd-media-keys
+   1713 ?        00:00:00 gsd-power
+   1714 ?        00:00:00 gsd-print-notif
+   1715 ?        00:00:00 gsd-rfkill
+   1717 ?        00:00:00 gsd-screensaver
+   1720 ?        00:00:00 gsd-sharing
+   1724 ?        00:00:00 gsd-smartcard
+   1730 ?        00:00:00 gsd-sound
+   1731 ?        00:00:00 gsd-usb-protect
+   1733 ?        00:00:00 gsd-printer
+   1736 ?        00:00:00 gsd-wacom
+   1745 ?        00:00:00 gsd-wwan
+   1746 ?        00:00:00 gsd-xsettings
+   1764 ?        00:00:00 evolution-alarm
+   1769 ?        00:00:00 gsd-disk-utilit
+   1802 ?        00:00:00 ibus-engine-sim
+   1865 ?        00:00:15 snap-store
+   1882 ?        00:00:00 xdg-document-po
+   1885 ?        00:00:00 evolution-calen
+   1897 ?        00:00:00 gvfsd-trash
+   1953 ?        00:00:00 dconf-service
+   1961 ?        00:00:00 evolution-addre
+   2073 ?        00:00:00 gnome-calendar
+   2075 ?        00:00:00 seahorse
+   2088 ?        00:00:13 gnome-terminal-
+   2166 pts/0    00:00:00 bash
+   2172 ?        00:00:00 xdg-desktop-por
+   2176 ?        00:00:00 xdg-desktop-por
+   2188 ?        00:00:02 fwupd
+   2189 ?        00:00:00 gvfsd-metadata
+   2192 ?        00:00:00 update-notifier
+   2817 ?        00:00:07 nautilus
+   2870 ?        00:00:14 gedit
+   2877 ?        00:00:00 kworker/0:4-events
+   4335 ?        00:00:00 kworker/1:0-events
+   4378 ?        00:00:00 kworker/u4:2-events_unbound
+   4379 ?        00:00:00 kworker/0:0-events
+   4423 ?        00:00:00 tracker-store
+   4482 pts/0    00:00:00 ps
+
+
+51)Display the name of the system kernel.
+yashasvi@yashasvi:~$ uname -s
+Linux
+
+
+
+52)display the kernel release number.
+yashasvi@yashasvi:~$ uname -v
+#71~20.04.1-Ubuntu SMP Thu Jul 15 17:46:08 UTC 2021
+
+
+
+53)display teh machine type of the current kernel.
+yashasvi@yashasvi:~$ uname -m
+x86_64
+
+
+
+54)Display the name of the operating system that the kernel is running on.
+yashasvi@yashasvi:~$ uname -o
+x86_64
+
+
+55)Display all info that uname command can show.
+yashasvi@yashasvi:~$ uname -a
+Linux yashasvi 5.8.0-63-generic #71~20.04.1-Ubuntu SMP Thu Jul 15 17:46:08 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+
+
+
+56)Display the name of directory that you are currently pointing to.
+yashasvi@yashasvi:~$ pwd
+/home/yashasvi
+
+
+
+57)change the current directory to another directory that you have in your system.
+yashasvi@yashasvi:~$ cd Desktop/
+yashasvi@yashasvi:~/Desktop$ 
+
+
+58)Go up one directory.
+yashasvi@yashasvi:~/Desktop$ cd ..
+yashasvi@yashasvi:~$ 
+
+
+59)Return to last directory.
+yashasvi@yashasvi:~$ cd -
+/home/yashasvi/Desktop
+
+
+60)change the current directory to home(logged in user's) directory.
+yashasvi@yashasvi:~/Desktop$ cd
+yashasvi@yashasvi:~$ 
+
+
+61)How to check all the command used from the prompt (Command History).
+yashasvi@yashasvi:~$ history
+1  sudo apt install build-essential dkms linux-headers
+    2  sudo apt install build-essential dkms linux-headers-$(uname -r)
+    3  cat /etc/shells
+    4  which bash
+    5  clear
+    6  cd Desktop/
+    7  touch hello.sh
+    8  ls -al
+    9  which bash
+   10  ./hello.sh
+   11  chmod +x hello.sh
+   12  ./hello.sh
+   13  ./hello.sh y a s
+   14  ./hello.sh
+   15  cd/
+   16  cd
+   17  sudo apt-get update
+   18  sudo apt-get install dkms
+   19  ./hello.sh 
+   20  cd hello.sh
+   21  touch hello.sh
+   22  ./hello.sh
+   23  chmod +x hello.sh
+   24  ./hello.sh
+   25  touch test
+   26  ./hello.sh
+   27  clear
+   28  cal
+   29  cal 1 2022
+   30  clear
+   31  ./hello.sh
+   32  -l
+   33  ./hello.sh
+   34  ./hello.sh #
+   35  ./hello.sh van
+   36  ./hello.sh truck
+   37  ./hello.sh gdgvsxhj
+   38  ./hello.sh 
+   39  clear
+   40  date
+   41  cat>test
+   42  cat < test
+   43  cat > random
+   44  cat < random
+   45  kill -9 3547
+   46  ./hello.sh 
+   47  cat > players
+   48  cat players
+   49  cut -d "-" -f 1,3 players
+   50  cut -d "-" -f 2,3 players
+   51  cat players
+   52  dd if=players of=out conv=ucase
+   53  cat players
+   54  cat out
+   55  banner "hello"
+   56  sudo apt install sysvbanner
+   57  banner "hello"
+   58  banner "yashasvi"
+   59  ./hello.sh 
+   60  2
+   61  ./hello.sh 
+   62  cat > test
+   63  cat test
+   64  grep -i test
+   65  grep -i yashasvi test
+   66  grep -i -n yashasvi test
+   67  grep -i -n -c yashasvi test
+   68  ./hello.sh 
+   69  ./hello.sh
+   70  cd Desktop/
+   71  touch test.sh
+   72  ls -al
+   73  chmod +x test.sh
+   74  ./test.sh
+   75  cat>test
+   76  cat <test
+   77  cat > random
+   78  cat < random
+   79  cat random test >sample
+   80  cat sample
+   81  cat random
+   82  cat test
+   83  mv test change
+   84  rm change
+   85  rm random
+   86  rm sample
+   87  touch old
+   88  cp old Music/old_music
+   89  ls -a
+   90  man grep
+   91  cat > abc
+   92  cat abc
+   93  file *
+   94  wc abc
+   95  cat > abc
+   96  cat abc
+   97  wc abc
+   98  wc -w abc
+   99  wc -r abc
+  100  wc --help
+  101  wc -c abc
+  102  wc -m abc
+  103  wc -l abc
+  104  wc -L abc
+  105  rm abc
+  106  rm old
+  107  cat > names
+  108  sort names
+  109  rm names
+  110  ./hello.sh
+  111  ./hello.sh 
+  112  cd hello
+  113  cd Desktop/
+  114  touch hello.sh
+  115  ./hello.sh
+  116  chmod +x hello.sh
+  117  ./hello.sh
+  118  sh hello.sh
+  119  ./hello.sh
+  120  cd .
+  121  cd /home/yashasvi/
+  122  touch hello.sh
+  123  ./hello.sh
+  124  cd Home/
+  125  cd home
+  126  cd Desktop/
+  127  cd .
+  128  cd
+  129  touch assignment1.sh
+  130  chmod +x assignment1.sh
+  131  ./assignment1.sh
+  132  HISTCONTROL=ignoredups
+  133  pwd
+  134  ./assignment1.sh
+  135  HISTCONTROL=ignoredups
+  136  pwd
+  137  who am i
+  138  date
+  139  pwd
+  140  whoami
+  141  pwd
+  142  whoami
+  143  history
+  144  ./assignment1.sh
+  145  HISTCONTROL=ignoredups
+  146  pwd
+  147  whoami
+  148  history
+  149  clear
+  150  ./assignment1.sh
+  151  HISTCONTROL=ignoredups
+  152  pwd
+  153  whoami
+  154  history
+  155  clear
+  156  touch assignment2.sh
+  157  chmod +x assignment2.sh
+  158  ./assignment2.sh
+  159  touch assignment3.sh
+  160  chmod +x assignment3.sh
+  161  ./assignment3.sh
+  162  touch assignment3.sh
+  163  chmod +x assignment4.sh
+  164  touch assignment4.sh
+  165  chmod +x assignment4.sh
+  166  ./assignment4.sh
+  167  touch assignment5.sh
+  168  chmod +x assignment5.sh
+  169  ./assignment5.sh
+  170  touch rem.txt
+  171  ./assignment5.sh
+  172  clear
+  173  touch assignment6.sh
+  174  chmod +x assignment6.sh
+  175  ./assignment6.sh
+  176  touch assignment7.sh
+  177  chmod +x assignment7.sh
+  178  ./assignment7.sh
+  179  ls -f
+  180  ./assignment7.sh
+  181  date
+  182  ls -a
+  183  ./assignment7.sh
+  184  alias --help
+  185  q
+  186  ./assignment7.sh
+  187  TODAY
+  188  ./assignment7.sh
+  189  TODAY
+  190  alias TODAY='$date'
+  191  alias UFILE="$list"
+  192  TODAY
+  193  UFILE
+  194  ./assignment7.sh
+  195  touch assignment8.sh
+  196  ./assignment8.sh
+  197  touch assignment9.sh
+  198  chmod +x assignment9.sh
+  199  ./assignment9.sh
+  200  touch assignment10.sh
+  201  chmod +x assignment10.sh
+  202  ./assignment10.sh
+  203  touch assignment11.sh
+  204  chmod +x assignment11.sh
+  205  ./assignment11.sh
+  206  touch assignment12.sh
+  207  chmod +x assignment12.sh
+  208  ./assignment12.sh
+  209  clear
+  210  ./assignment12.sh
+  211  touch assignment13.sh
+  212  chmod +x assignment13.sh
+  213  ./assignment13.sh
+  214  clear
+  215  ./assignment13.sh
+  216  clear
+  217  ./assignment12.sh
+  218  6
+  219  ./assignment12.sh
+  220  touch assignment14.sh
+  221  chmod +x assignment14.sh
+  222  ./assignment14.sh
+  223  touch assignment15.sh
+  224  chmod +x assignment15.sh
+  225  ./assignment15.sh
+  226  touch assignment16.sh
+  227  chmod +x assignment16.sh
+  228  ./assignment16.sh
+  229  cat simple
+  230  cat > simple
+  231  cat simple
+  232  ./assignment16.sh
+  233  cat > hero
+  234  ./assignment16.sh
+  235  touch assignment18.sh
+  236  chmod +x assignment18.sh
+  237  ./assignment18.sh
+  238  cat simple
+  239  cat > simple
+  240  cat simple
+  241  rm simple
+  242  ./assignment18.sh
+  243  clear
+  244  ./assignment18.sh
+  245  touch assignment19.sh
+  246  chmod +x assignment19.sh
+  247  ./assignment19.sh
+  248  clear
+  249  rm assignment19.sh
+  250  touch assignment20.sh
+  251  chmod +x assignment20.sh
+  252  ./assignment20.sh
+  253  touch assignment21.sh
+  254  chmod +x assignment21.sh
+  255  ./assignment21.sh
+  256  touch assignment22.sh
+  257  chmod +x assignment22.sh
+  258  ./assignment22.sh
+  259  touch assignment23.sh
+  260  chmod +x assignment23.sh
+  261  ./assignment23.sh
+  262  cat samples
+  263  cat > samples
+  264  ls -lh
+  265  ls -a
+  266  ls -R
+  267  ls -laS
+  268  ls -lt
+  269  printenv
+  270  PATH
+  271  man path
+  272  PATH Home
+  273  PATH Home/
+  274  echo $PATH
+  275  which bash
+  276  whoami
+  277  ps -A
+  278  hostnamectl |grep kernel
+  279  hostnamectl | grep kernel
+  280  uname --help
+  281  uname -s
+  282  uname -v
+  283  uname -m
+  284  uname -p
+  285  uname -o
+  286  uname -a
+  287  pwd
+  288  cd Desktop/
+  289  cd ..
+  290  cd -
+  291  cd
+  292  history
+
+
+62)Show the real life use case of exporting a variable.
+yashasvi@yashasvi:~$ export -p
+declare -x COLORTERM="truecolor"
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+declare -x DESKTOP_SESSION="ubuntu"
+declare -x DISPLAY=":0"
+declare -x GDMSESSION="ubuntu"
+declare -x GJS_DEBUG_OUTPUT="stderr"
+declare -x GJS_DEBUG_TOPICS="JS ERROR;JS LOG"
+declare -x GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+declare -x GNOME_SHELL_SESSION_MODE="ubuntu"
+declare -x GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/35a6e136_5a8d_492f_8ff7_d0e5ff96d8f7"
+declare -x GNOME_TERMINAL_SERVICE=":1.82"
+declare -x GPG_AGENT_INFO="/run/user/1000/gnupg/S.gpg-agent:0:1"
+declare -x GTK_MODULES="gail:atk-bridge"
+declare -x HOME="/home/yashasvi"
+declare -x IM_CONFIG_PHASE="1"
+declare -x INVOCATION_ID="0663836ba9784417b836cd3d1e7340d8"
+declare -x JOURNAL_STREAM="8:33553"
+declare -x LANG="en_IN"
+declare -x LANGUAGE="en_IN:en"
+declare -x LESSCLOSE="/usr/bin/lesspipe %s %s"
+declare -x LESSOPEN="| /usr/bin/lesspipe %s"
+declare -x LOGNAME="yashasvi"
+declare -x LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:"
+declare -x MANAGERPID="1299"
+declare -x OLDPWD="/home/yashasvi/Desktop"
+declare -x PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+declare -x PWD="/home/yashasvi"
+declare -x QT_ACCESSIBILITY="1"
+declare -x QT_IM_MODULE="ibus"
+declare -x SESSION_MANAGER="local/yashasvi:@/tmp/.ICE-unix/1591,unix/yashasvi:/tmp/.ICE-unix/1591"
+declare -x SHELL="/bin/bash"
+declare -x SHLVL="1"
+declare -x SSH_AGENT_PID="1518"
+declare -x SSH_AUTH_SOCK="/run/user/1000/keyring/ssh"
+declare -x TERM="xterm-256color"
+declare -x USER="yashasvi"
+declare -x USERNAME="yashasvi"
+declare -x VTE_VERSION="6003"
+declare -x WINDOWPATH="2"
+declare -x XAUTHORITY="/run/user/1000/gdm/Xauthority"
+declare -x XDG_CONFIG_DIRS="/etc/xdg/xdg-ubuntu:/etc/xdg"
+declare -x XDG_CURRENT_DESKTOP="ubuntu:GNOME"
+declare -x XDG_DATA_DIRS="/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop"
+declare -x XDG_MENU_PREFIX="gnome-"
+declare -x XDG_RUNTIME_DIR="/run/user/1000"
+declare -x XDG_SESSION_CLASS="user"
+declare -x XDG_SESSION_DESKTOP="ubuntu"
+declare -x XDG_SESSION_TYPE="x11"
+declare -x XMODIFIERS="@im=ibus"
+
+
+63)List all entries with extension ".sh".
+yashasvi@yashasvi:~$ ls *.sh
+assignment10.sh  assignment16.sh  assignment23.sh  assignment7.sh
+assignment11.sh  assignment18.sh  assignment2.sh   assignment8.sh
+assignment12.sh  assignment1.sh   assignment3.sh   assignment9.sh
+assignment13.sh  assignment20.sh  assignment4.sh   hello.sh
+assignment14.sh  assignment21.sh  assignment5.sh
+assignment15.sh  assignment22.sh  assignment6.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
