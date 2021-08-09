@@ -1356,6 +1356,19 @@ $ tar cvf file.tar *.c
 $ tar xvf file.tar
 
 
+66)List all entries with numbers in it.
+$ find / -user user_name | grep "*.sh"
+
+
+67)List alle entries that starts with a character and ends with a number.
+$ grep -E "^a.*n$" filename
+
+
+68)List all entries that name length more than 5 characters.
+$ ls -d/tmp/????
+or
+$ find /tmp -type f -size 5c
+
 
 
 
