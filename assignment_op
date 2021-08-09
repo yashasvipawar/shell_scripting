@@ -1,0 +1,359 @@
+assignment1 output:
+yashasvi@yashasvi:~$ ./assignment1.sh
+yashasvi
+/home/yashasvi
+xterm-256color
+
+yashasvi@yashasvi:~$ HISTCONTROL=ignoredups
+yashasvi@yashasvi:~$ pwd
+/home/yashasvi
+yashasvi@yashasvi:~$ pwd
+/home/yashasvi
+yashasvi@yashasvi:~$ whoami
+yashasvi
+yashasvi@yashasvi:~$ history
+HISTCONTROL=ignoredups
+   pwd
+   whoami
+   history
+
+assignment2 output:
+yashasvi@yashasvi:~$ ./assignment2.sh
+ MYUSERNAME :yashasvi
+ MYPASSWORD : Yashasvi31! 
+ STARTOFSCRIPT : Friday 06 August 2021 01:14:14 PM IST 
+ ENDOFSCRIPT : Friday 06 August 2021 01:14:14 PM IST 
+
+assignment3 output:
+yashasvi@yashasvi:~$ ./assignment3.sh
+ 5 is the first variable 
+ 10 is the second variable
+ 
+assignment4 output:
+yashasvi@yashasvi:~$ ./assignment4.sh
+Hello everyone. This line will be displayed on screen.
+okay thank you!
+
+assignment5 output:
+yashasvi@yashasvi:~$ ./assignment5.sh
+15
+0
+rm: cannot remove 'rem.txt': No such file or directory
+1
+5
+0
+
+assignment6 output:
+yashasvi@yashasvi:~$ ./assignment6.sh
+sum of two numbers is : 3
+mul is : 9
+
+assignment7 output:
+yashasvi@yashasvi:~$ ./assignment7.sh
+Enter the date
+31 jan 2000
+31 jan 2000
+Enter the details of files
+hello
+hello
+
+assignment7 output:
+yashasvi@yashasvi:~$ ./assignment7.sh
+Enter the date
+31/01/2000
+31/01/2000
+Enter the details of files
+file1
+file1
+
+
+assignment8 output:
+yashasvi@yashasvi:~$ ./assignment8.sh
+ enter the name 
+yashasvi
+ enter the lastname 
+pawar
+ enter the age 
+21
+yashasvi pawar your age is 21 
+yashasvi pawar your age after 10 years is 31
+
+assignment9 output:
+yashasvi@yashasvi:~$ ./assignment9.sh
+abc
+def
+pqr
+lmn
+abc def pqr lmn
+
+assignment10 output:
+yashasvi@yashasvi:~$ ./assignment10.sh
+username:yashasvi
+password:
+username: yashasvi
+password: Yashasvi31!
+
+assignment11 output:
+yashasvi@yashasvi:~$ ./assignment11.sh
+Enter number between 1to5:
+3
+correct number
+yashasvi@yashasvi:~$ ./assignment11.sh
+Enter number between 1to5:
+7
+
+assignment12 output:
+yashasvi@yashasvi:~$ ./assignment12.sh
+Enter the number between 1to3:
+1
+1 is present in the given range
+yashasvi@yashasvi:~$ ./assignment12.sh
+Enter the number between 1to3:
+5
+failed to follow the given instructions
+
+assignment13 output:
+yashasvi@yashasvi:~$ ./assignment13.sh
+assignment10.sh  assignment1.sh  assignment5.sh  assignment9.sh
+assignment11.sh  assignment2.sh  assignment6.sh  hello.sh
+assignment12.sh  assignment3.sh  assignment7.sh
+assignment13.sh  assignment4.sh  assignment8.sh
+assignment10.sh
+read -p 'username:' user_var
+read -sp 'password:' pass_var
+echo "username: $user_var"
+echo "password: $pass_var"
+assignment11.sh
+echo "Enter number between 1to5:"
+read num
+if [ "$num" -ge 1 ] && [ "$num" -le 5 ]
+then
+echo "correct number"
+fi
+assignment12.sh
+echo "Enter the number between 1to3:"
+read num
+if [ "$num" -ge 1 ] && [ "$num" -le 3 ]
+then
+echo "$num is present in the given range"
+else
+echo "failed to follow the given instructions" 2>/dev/null
+fi
+assignment13.sh
+list= ls  *.sh
+for  list in *.sh
+do
+echo "$list"
+cat $list
+done
+assignment1.sh
+echo $USER
+echo $HOME
+echo $TERM
+
+assignment2.sh
+#!/bin/bash
+MYUSERNAME=yashasvi
+MYPASSWORD=Yashasvi31!
+y=date
+STARTOFSCRIPT=$(date)
+ENDOFSCRIPT=$(date)
+echo " MYUSERNAME :$MYUSERNAME"
+echo " MYPASSWORD : $MYPASSWORD "
+echo " STARTOFSCRIPT : $STARTOFSCRIPT "
+echo " ENDOFSCRIPT : $ENDOFSCRIPT "
+assignment3.sh
+variable1=5 #creating and initializing the variable 1
+variable2=10 #creating and initializing the variable 2
+echo " $variable1 is the first variable "  #printing the variable 1
+echo " $variable2 is the second variable " #printing the variable 2
+assignment4.sh
+echo "Hello everyone. This line will be displayed on screen."
+echo "okay thank you!" 2>/dev/null #filter out the errors
+
+assignment5.sh
+#0 means failure and 1 means success
+a=10
+b=5
+echo $(( a + b ))
+echo $?   
+rm rem.txt
+echo $?    
+echo $(( a - b ))
+echo $?
+assignment6.sh
+num1=1
+num2=2
+
+sum=$(($num1 + $num2))
+echo "sum of two numbers is : $sum"
+
+num3=3
+mul=$(( sum * num3))
+echo "mul is : $mul"
+assignment7.sh
+echo "Enter the date"
+read date
+echo "$date"
+echo "Enter the details of files"
+read list
+echo "$list"
+
+alias TODAY="$date"
+alias UFILE="$list"
+
+ 
+assignment8.sh
+echo " enter the name "
+read FIRSTNAME 
+echo " enter the lastname "
+read LASTNAME 
+echo " enter the age "
+read AGE
+echo "$FIRSTNAME $LASTNAME your age is $AGE "
+newage=$(( AGE + 10))
+echo "$FIRSTNAME $LASTNAME your age after 10 years is $newage"
+assignment9.sh
+SERVERLIST=("abc"  "def"  "pqr"  "lmn" )
+echo "${SERVERLIST[0]}"
+echo "${SERVERLIST[1]}"
+echo "${SERVERLIST[2]}"
+echo "${SERVERLIST[3]}"
+echo "${SERVERLIST[@]}"
+hello.sh
+count=0
+while [ $count -le 9 ]
+do
+count= expr $count + 1
+if [ $count -eq 5 ]
+then
+continue
+fi
+echo $count
+done
+echo " the end"
+
+assignment14 output:
+yashasvi@yashasvi:~$ ./assignment14.sh
+Enter the number between 1 to 3:
+2
+entered number is 2
+yashasvi@yashasvi:~$ ./assignment14.sh
+Enter the number between 1 to 3:
+6
+entered number is out of bound
+
+assignment15 output:
+yashasvi@yashasvi:~$ ./assignment15.sh
+Enter a number:
+5
+5 number of times
+count is 1
+count is 2
+count is 3
+count is 4
+count is 5
+
+asignment16 output:
+yashasvi@yashasvi:~$ cat > hero
+batman
+ironman
+superman
+spiderman
+^C
+yashasvi@yashasvi:~$ ./assignment16.sh
+batman
+ironman
+superman
+spiderman
+
+assignment17 output:
+yashasvi@yashasvi:~$ ./assignment17.sh
+enter file name to read:
+hero
+text name: batman
+text name: ironman
+text name: superman
+text name: spiderman
+text name: file was read on:Monday 09 August 2021 07:14:04 PM IST
+
+assignment18 output:
+yashasvi@yashasvi:~$ ./assignment18.sh
+CPU=2.4GHz 
+Memory=64GB 
+Diskspace=32MB 
+
+assignment19 output:
+yashasvi@yashasvi:~$ ./assignment19.sh
+./assignment19.sh: line 1: trap: SIGSTP: invalid signal specification
+main menu
+---------
+1) one
+2) two
+3) three
+Q) exit
+
+Q
+yashasvi@yashasvi:~$ 
+
+assignment20 output:
+yashasvi@yashasvi:~$ ./assignment20.sh
+Enter the name of direc
+Home
+cannot change direc
+yashasvi@yashasvi:~$ ./assignment20.sh
+Enter the name of direc
+Desktop
+we can change into direc Desktop , contents are as follows
+total 8
+drwxr-xr-x  2 yashasvi yashasvi 4096 Aug  6 11:12 .
+drwxr-xr-x 17 yashasvi yashasvi 4096 Aug  9 19:36 ..
+
+assignment21 output:
+yashasvi@yashasvi:~$ ./assignment21.sh
+before calling the function
+Inside the function
+After calling the function
+
+assignment22 output:
+yashasvi@yashasvi:~$ ./assignment22.sh
+Before calling the function
+5
+
+Inside the function
+10
+After calling the function
+global variable is 5
+local variable is 10
+
+assignment23 output:
+yashasvi@yashasvi:~$ ./assignment23.sh
+your name:
+yashasvi
+Enter age:21
+“ 21 ”
+Hello yashasvi your age is 21 and days are 7665 
+
+assignment24 output:
+yashasvi@yashasvi:~$ ./assignment24.sh
+enter gender:
+female
+Human beings have 2 arms and 2 legs
+female has 0 beard
+yashasvi@yashasvi:~$ ./assignment24.sh
+enter gender:
+male
+Human beings have 2 arms and 2 legs
+male has 1 beard
+
+
+
+
+
+
+
+
+
+
+
+
